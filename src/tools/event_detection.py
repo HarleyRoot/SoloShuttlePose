@@ -195,6 +195,6 @@ def event_detect(json_path, result_path):
     plt.clf()
 
 
-# event_detect("res/ball/loca_info/test1/test1_273-547.json", "res/ball")
+event_detect(r'D:/SoloShuttlePose/res/ball/loca_info/44/44_0-171.json', "/../res/ball")
 
-# event_detect("res/ball/loca_info(denoise)/test1/test1_872-1148.json","res/ball")
+event_detect(r"D:/SoloShuttlePose/res/ball/loca_info(denoise)/44/44_0-171.json","/../res/ball")
