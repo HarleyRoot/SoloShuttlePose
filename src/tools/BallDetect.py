@@ -57,7 +57,32 @@ def ball_detect(video_path,result_path):
 
     cd_save_dir= os.path.join(f"{result_path}/courts", f"court_kp")
     cd_json_path=f"{cd_save_dir}/{orivi_name}.json"
-    court=read_json(cd_json_path)['court_info']            
+    court=[
+            [
+                608,
+                515
+            ],
+            [
+                1305,
+                515
+            ],
+            [
+                539,
+                707
+            ],
+            [
+                1376,
+                707
+            ],
+            [
+                434,
+                1006
+            ],
+            [
+                1483,
+                1006
+            ]
+        ]           
             
 
     d_save_dir = os.path.join(result_path, f"loca_info/{orivi_name}")

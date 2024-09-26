@@ -203,8 +203,7 @@ for root, dirs, files in os.walk(folder_path):
 
                     pbar.update(1)
 
-            # Release the video capture and writer objects
-            video.release()
+           
 
             try:
                 # Code block that may raise exceptions
@@ -230,3 +229,6 @@ for root, dirs, files in os.walk(folder_path):
                       type(Exception).__name__)
                 logging.basicConfig(filename='logs/error.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
                 logging.error(traceback.format_exc())
+                
+            # Release the video capture and writer objects
+            video.release()
