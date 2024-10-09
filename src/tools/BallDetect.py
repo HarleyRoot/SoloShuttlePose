@@ -14,7 +14,7 @@ sys.path.append("src/tools")
 from TrackNet import TrackNet
 from utils import extract_numbers, write_json, read_json
 from denoise import smooth
-from event_detection1 import event_detect
+from event_detection import event_detect
 import logging
 import traceback
 
@@ -66,8 +66,8 @@ def ball_detect(video_path,result_path):
     d_save_dir = os.path.join(result_path, f"loca_info/{orivi_name}")
     f_source = str(video_path)
 
-    #if not os.path.exists(d_save_dir):
-    os.makedirs(d_save_dir)
+    if not os.path.exists(d_save_dir):
+        os.makedirs(d_save_dir)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     model = TrackNet().to(device)
