@@ -13,6 +13,8 @@ from src.models.CourtDetect import CourtDetect
 from src.models.NetDetect import NetDetect
 import argparse
 from src.tools.BallDetect import ball_detect
+from src.tools.event_detection import event_detect
+from src.tools.PlayerDist import PlayerDist
 import logging
 import traceback
 import warnings
@@ -202,22 +204,26 @@ for root, dirs, files in os.walk(folder_path):
                                f"{result_path}/players/player_kp")
 
                     pbar.update(1)
-
-           
-
+            # Release the video capture and writer objects
+            video.release()
             try:
                 # Code block that may raise exceptions
                 # tracknet
-                print("-" * 10 + "Starting Ball Detection" + "-" * 10)
+                print("-" * 10 + "Starting More" + "-" * 10)
                 for res_root, res_dirs, res_files in os.walk(
                         f"{result_path}/videos/{video_name}"):
                     for res_file in res_files:
                         _, ext = os.path.splitext(res_file)
                         if ext.lower() in ['.mp4']:
                             res_video_path = os.path.join(res_root, res_file)
-                            print(res_video_path)
-                            ball_detect(res_video_path, f"{result_path}/ball")
-                print("-" * 10 + "End Badminton Detection" + "-" * 10)
+                            print("video_path: "+res_video_path)
+                            print("-" * 10 + "Starting Ball Detection" + "-" * 10)
+                            ball_detect(res_video_path, f"{result_path}")
+                            # print("-" * 10 + "Starting Event Detection" + "-" * 10)
+                            # event_detect(res_video_path, f"{result_path}/ball")
+                            # print("-" * 10 + "Starting Players Distance" + "-" * 10)
+                            # PlayerDist(res_video_path, f"{result_path}")
+                print("-" * 10 + "End More" + "-" * 10)
             except KeyboardInterrupt:
                 print("Caught exception type on main.py ball_detect:",
                       type(KeyboardInterrupt).__name__)
@@ -229,6 +235,37 @@ for root, dirs, files in os.walk(folder_path):
                       type(Exception).__name__)
                 logging.basicConfig(filename='logs/error.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
                 logging.error(traceback.format_exc())
-                
-            # Release the video capture and writer objects
-            video.release()
+
+            try:
+                # Code block that may raise exceptions
+                # tracknet
+                print("-" * 10 + "Starting More" + "-" * 10)
+                for res_root, res_dirs, res_files in os.walk(
+                        f"{result_path}/videos/{video_name}"):
+                    for res_file in res_files:
+                        _, ext = os.path.splitext(res_file)
+                        if ext.lower() in ['.mp4']:
+                            res_video_path = os.path.join(res_root, res_file)
+                            video_name = os.path.splitext(os.path.basename(res_video_path))[0]
+                            orivi_name, start_frame = extract_numbers(video_name)
+                            res_save_path = os.path.join(f"{result_path}/ball", f"loca_info")
+                            res_json_path=f"{cd_save_dir}/{orivi_name}.json"
+                            # print("video_path: "+res_video_path)
+                            # print("-" * 10 + "Starting Ball Detection" + "-" * 10)
+                            # ball_detect(res_video_path, f"{result_path}")
+                            print("-" * 10 + "Starting Event Detection" + "-" * 10)
+                            event_detect(res_json_path, f"{result_path}/ball")
+                            # print("-" * 10 + "Starting Players Distance" + "-" * 10)
+                            # PlayerDist(res_video_path, f"{result_path}")
+                print("-" * 10 + "End More" + "-" * 10)
+            except KeyboardInterrupt:
+                print("Caught exception type on main.py ball_detect:",
+                      type(KeyboardInterrupt).__name__)
+                logging.basicConfig(filename='logs/error.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
+                logging.error(traceback.format_exc())
+                exit()
+            except Exception:
+                print("Caught exception type on main.py ball_detect:",
+                      type(Exception).__name__)
+                logging.basicConfig(filename='logs/error.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
+                logging.error(traceback.format_exc())

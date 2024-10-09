@@ -5,6 +5,8 @@ import yt_dlp
 
 source_directory = "ShuttleSet/ShuttleSet22/match"
 target_directory = "ShuttleSet/ShuttleSet22/match_db"
+# source_directory = "D:\PycharmProjects\pythonProject1\SoloShuttlePose-main\ShuttleSet\ShuttleSet22\match"
+# target_directory = "D:\PycharmProjects\pythonProject1\SoloShuttlePose-main\ShuttleSet\ShuttleSet22\match_db"
 
 # 确保要删除的文件夹存在
 if os.path.exists(target_directory):

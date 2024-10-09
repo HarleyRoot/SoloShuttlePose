@@ -14,7 +14,7 @@ sys.path.append("src/tools")
 from TrackNet import TrackNet
 from utils import extract_numbers, write_json, read_json
 from denoise import smooth
-from event_detection import event_detect
+from event_detection1 import event_detect
 import logging
 import traceback
 
@@ -57,39 +57,17 @@ def ball_detect(video_path,result_path):
 
     cd_save_dir= os.path.join(f"{result_path}/courts", f"court_kp")
     cd_json_path=f"{cd_save_dir}/{orivi_name}.json"
-    court=[
-            [
-                608,
-                515
-            ],
-            [
-                1305,
-                515
-            ],
-            [
-                539,
-                707
-            ],
-            [
-                1376,
-                707
-            ],
-            [
-                434,
-                1006
-            ],
-            [
-                1483,
-                1006
-            ]
-        ]           
-            
+    print(f"Expected JSON path: {cd_json_path}")
+    print(f"orivi_name: {orivi_name}")
 
+    court=read_json(cd_json_path)['court_info']            
+            
+    result_path = result_path+"/ball"
     d_save_dir = os.path.join(result_path, f"loca_info/{orivi_name}")
     f_source = str(video_path)
 
-    if not os.path.exists(d_save_dir):
-        os.makedirs(d_save_dir)
+    #if not os.path.exists(d_save_dir):
+    os.makedirs(d_save_dir)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
     model = TrackNet().to(device)
@@ -192,8 +170,7 @@ def ball_detect(video_path,result_path):
                     # cv2.circle(imgs[i], (cx_pred, cy_pred), 5, (0, 0, 255), -1)
                     # out.write(imgs[i])
                     # cv2.imwrite('{}/{}.png'.format(d_save_dir, count), imgs[i])
-                    # print("{} cx: {}  cy: {}".format(count + start_frame,
-                    #                                  cx_pred, cy_pred))
+                    # print("{} cx: {}  cy: {}".format(count + start_frame,cx_pred, cy_pred))
 
                 count += 1
                 pbar.update(1)
