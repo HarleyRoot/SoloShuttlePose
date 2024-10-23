@@ -15,6 +15,7 @@ import argparse
 from src.tools.BallDetect import ball_detect
 from src.tools.event_detection import event_detect
 from src.tools.PlayerDist import PlayerDist
+import src.tools.player_round as player_ground
 import logging
 import traceback
 import warnings
@@ -236,4 +237,11 @@ for root, dirs, files in os.walk(folder_path):
                 logging.basicConfig(filename='logs/error.log', level=logging.ERROR, format='%(asctime)s - %(levelname)s - %(message)s')
                 logging.error(traceback.format_exc())
 
-            
+
+# 结果存放文件夹
+res_dir = "./res/players/players_round"
+player_ground.check_res_dir(res_dir)
+
+# 扫描来源文件夹
+root_dir = "./res/ball/event"
+src_dir = player_ground.scan_src_dir(root_dir, res_dir)
