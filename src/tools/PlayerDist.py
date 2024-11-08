@@ -217,4 +217,4 @@ def PlayerDist(video_path, result_path):
     # 一次性写入所有数据
     write_json_new(all_frames_data, video_name, dis_path)
     
-PlayerDist(r'res/videos/h1/h1_120-335.mp4', r'res')
+# PlayerDist(r'res/videos/h1/h1_120-335.mp4', r'res')
